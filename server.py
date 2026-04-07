@@ -19,7 +19,32 @@ from enum import Enum
 import httpx
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 from mcp.server.fastmcp import FastMCP
+from fastmcp.server.auth.providers.github import GitHubProvider
 
+
+
+# ---------------------------------------------------------------------------
+# GITHUB  Ouath Settings
+# ---------------------------------------------------------------------------
+
+required_env_vars = ["GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"]
+missing_vars = [var for var in required_env_vars if not os.getenv(var)]
+
+if missing_vars:
+    raise ValueError(
+        f"Missing required environment variables: {', '.join(missing_vars)}"
+    )
+_manual_base    = os.environ.get("MCP_BASE_URL", "")
+MCP_BASE_URL    = _manual_base or (f"https://{_railway_domain}" if _railway_domain else "http://localhost:8000")
+
+# Initialize GitHub OAuth provider
+auth_provider = GitHubProvider(
+    client_id=os.getenv("GITHUB_CLIENT_ID"),
+    client_secret=os.getenv("GITHUB_CLIENT_SECRET"),
+    base_url=MCP_BASE_URL,
+    redirect_path="/auth/callback"
+    #required_scopes=["user:email"],  # Request email access
+)
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
