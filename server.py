@@ -64,7 +64,7 @@ logger = logging.getLogger("shopify_mcp")
 PORT          = int(os.environ.get("PORT", "8000"))
 MCP_TRANSPORT = os.environ.get("MCP_TRANSPORT", "streamable-http")
 
-mcp = FastMCP("shopify_mcp", json_response=True,auth=auth_provider)
+mcp = FastMCP("shopify_mcp",auth=auth_provider)
 
 
 # ---------------------------------------------------------------------------
@@ -959,4 +959,5 @@ async def shopify_create_webhook(params: CreateWebhookInput) -> str:
 # Entrypoint
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    mcp.run(transport=MCP_TRANSPORT)
+    mcp.run(transport=MCP_TRANSPORT,
+        json_response=True)
