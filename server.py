@@ -959,5 +959,9 @@ async def shopify_create_webhook(params: CreateWebhookInput) -> str:
 # Entrypoint
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    mcp.run(transport=MCP_TRANSPORT,
-        json_response=True)
+    mcp.run(
+        transport=MCP_TRANSPORT,
+        host="0.0.0.0",
+        port=PORT,
+        json_response=True
+    )
