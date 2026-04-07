@@ -35,7 +35,7 @@ if missing_vars:
         f"Missing required environment variables: {', '.join(missing_vars)}"
     )
 _manual_base    = os.environ.get("MCP_BASE_URL", "")
-MCP_BASE_URL    = _manual_base or (f"https://{_railway_domain}" if _railway_domain else "http://localhost:8000")
+MCP_BASE_URL    = _manual_base
 
 # Initialize GitHub OAuth provider
 auth_provider = GitHubProvider(
