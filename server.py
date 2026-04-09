@@ -42,7 +42,7 @@ auth_provider = GitHubProvider(
     client_id=os.getenv("GITHUB_CLIENT_ID"),
     client_secret=os.getenv("GITHUB_CLIENT_SECRET"),
     base_url=MCP_BASE_URL,
-    redirect_path="/auth/callback"
+    redirect_path="/auth/callback",
     required_scopes=["user:email"],  # Request email access
     allowed_client_redirect_uris=["https://claude.ai/api/mcp/auth_callback"]
 )
